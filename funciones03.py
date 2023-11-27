@@ -9,6 +9,7 @@ def Intercambiar(n1, n2):
     else:
         return n1, n2
 
+
 # Función CalcularMCD: Recibe dos números y devuelve el MCD utilizando el método 
 # de Euclides. El método de Euclides es el siguiente:
 #  * Se divide el número mayor entre el menor.
@@ -32,6 +33,11 @@ def CalcularMCD(n1, n2):
 # Esta función usa SimplificarFraccion para simplificar la fracción leída.
 # Datos devueltos: numerador y denominador 
 
+def LeerFracion():
+    numerador = (int)(input("Introduzca el numerador de la fracción: "))
+    denominador = (int)(input("Introduzca el denominador de la fracción: "))
+    SimplificarFracion(numerador, denominador)
+    return numerador, denominador
 
 
 # Función SimplificarFracion: Recibe una fracción (numerador y denominador)
@@ -40,6 +46,11 @@ def CalcularMCD(n1, n2):
 # y denominador. 
 # Datos devueltos: numerador y denominador 
 
+def SimplificarFracion(numerador, denominador):
+    mcd = CalcularMCD(numerador, denominador)
+    numerador = numerador/mcd
+    denominador = denominador/mcd
+    return numerador, denominador
 
 
 # Función EscribirFracion: Recibe una fracción (numerador y denominador)
@@ -47,6 +58,11 @@ def CalcularMCD(n1, n2):
 # denominador es 1 sólo muestra el numerador.
 # Parámetros de entrada: numerador y denominador 
 
+def EscribirFracion(numerador, denominador):
+    if denominador == 1:
+        print(numerador)
+    else:
+        print(numerador, "/", denominador)
 
 	
 # Función SumarFracciones: Recibe dos fracciones (numerador y denominador)
@@ -57,6 +73,11 @@ def CalcularMCD(n1, n2):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def SumarFracciones(numerador1, denominador1, numerador2, denominador2):
+    numerador = (numerador1*denominador2)+(denominador1*numerador2)
+    denominador = (denominador1*denominador2)
+    numerador, denominador = SimplificarFracion(numerador, denominador)
+    return numerador, denominador
 
 
 # Función RestarFracciones: Recibe dos fracciones (numerador y denominador)
@@ -67,6 +88,11 @@ def CalcularMCD(n1, n2):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def RestarFracciones(numerador1, denominador1, numerador2, denominador2):
+    numerador = (numerador1*denominador2)-(denominador1*numerador2)
+    denominador = (denominador1*denominador2)
+    numerador, denominador = SimplificarFracion(numerador, denominador)
+    return numerador, denominador
 
 
 # Función MultiplicarFracciones: Recibe dos fracciones (numerador y denominador)
@@ -77,6 +103,11 @@ def CalcularMCD(n1, n2):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def MultiplicarFracciones(numerador1, denominador1, numerador2, denominador2):
+    numerador = (numerador1*numerador2)
+    denominador = (denominador1*denominador2)
+    numerador, denominador = SimplificarFracion(numerador, denominador)
+    return numerador, denominador
 
 
 # Función DividirFracciones: Recibe dos fracciones (numerador y denominador)
@@ -87,7 +118,40 @@ def CalcularMCD(n1, n2):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def DividirFracciones(numerador1, denominador1, numerador2, denominador2):
+    numerador = (numerador1*denominador2)
+    denominador = (denominador1*numerador2)
+    numerador, denominador = SimplificarFracion(numerador, denominador)
+    return numerador, denominador
 
 
 # Crear un programa que utilizando las funciones anteriores muestre un menú para 
 # operar con fracciones.
+
+while True:
+    print("\n************************ MENÚ ************************")
+    print("1. Sumar")
+    print("2. Restar")
+    print("3. Multiplicar")
+    print("4. Dividir")
+    print("Otro: SALIR")
+    opcion = (int)(input("Introduzca una opción: "))
+
+    if opcion<1 or opcion>4:
+        break
+
+    numerador1, denominador1 = LeerFracion()
+    numerador2, denominador2 = LeerFracion()
+    
+    if opcion == 1:
+        sumaNumerador, sumaDenominador = SumarFracciones(numerador1, denominador1, numerador2, denominador2)
+        EscribirFracion(sumaNumerador, sumaDenominador)
+    elif opcion == 2:
+        restaNumerador, restaDenominador = RestarFracciones(numerador1, denominador1, numerador2, denominador2)
+        EscribirFracion(restaNumerador, restaDenominador)
+    elif opcion == 3:
+        multiplicaNumerador, multiplicaDenominador = MultiplicarFracciones(numerador1, denominador1, numerador2, denominador2)
+        EscribirFracion(multiplicaNumerador, multiplicaDenominador)
+    elif opcion == 4:
+        divideNumerador, divideDenominador = DividirFracciones(numerador1, denominador1, numerador2, denominador2)
+        EscribirFracion(divideNumerador, divideDenominador)
